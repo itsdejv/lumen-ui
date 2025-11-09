@@ -8,10 +8,6 @@
     ".": {
       "import": "./dist/ui.es.js",
       "require": "./dist/ui.umd.js"
-    },
-    "./styles.css": {
-      "require": "./dist/styles.css",
-      "default": "./dist/styles.css"
     }
   },
   "files": [
@@ -20,13 +16,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && npm run build:css",
-    "build:css": "tailwindcss -m -i ./src/tailwind-entry.css -o ./dist/styles.css",
+    "build:css": "tailwindcss -m -i src/tailwind.css -o dist/styles.css",
     "lint": "eslint .",
     "preview": "vite preview",
-    "storybook": "concurrently \"npm run storybook:css\" \"storybook dev -p 6006\"",
-    "storybook:css": "tailwindcss -w -i ./src/tailwind-entry.css -o ./src/index.css",
-    "build-storybook": "concurrently \"npm run build-storybook:css\" \"storybook build\"",
-    "build-storybook:css": "tailwindcss -m -i ./src/tailwind-entry.css -o ./src/index.css",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
