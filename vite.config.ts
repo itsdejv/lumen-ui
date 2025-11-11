@@ -3,6 +3,7 @@ import dts from "vite-plugin-dts";
 import { peerDependencies } from "./package.json";
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
+import * as path from "node:path";
 
 export default defineConfig({
   plugins: [
@@ -13,6 +14,11 @@ export default defineConfig({
       exclude: ["**/*.stories.ts", "**/*.test.tsx"],
     }),
   ],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
   build: {
     lib: {
       entry: "./src/index.ts",
