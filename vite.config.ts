@@ -1,29 +1,23 @@
-import react from "@vitejs/plugin-react";
-import dts from "vite-plugin-dts";
-import { peerDependencies } from "./package.json";
 import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { peerDependencies } from "./package.json";
 import tailwindcss from "@tailwindcss/vite";
-import * as path from "node:path";
+
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(),
     dts({
-      insertTypesEntry: true,
-      exclude: ["**/*.stories.ts", "**/*.test.tsx"],
+      exclude: ["**/*.stories.tsx", "**/*.test.tsx"],
     }),
+    tailwindcss(),
   ],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
   build: {
     lib: {
       entry: "./src/index.ts",
-      name: "ui",
-      fileName: (format) => `ui.${format}.js`,
+      name: "lumen-ui",
+      fileName: (format) => `lumen-ui.${format}.js`,
       formats: ["es", "cjs", "umd"],
     },
     rollupOptions: {

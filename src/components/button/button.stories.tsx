@@ -1,30 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Button } from "./button.tsx";
+import { Button } from "./button";
 
 const meta = {
-  title: "Example/Button",
-  component: Button,
-  tags: ["docsPage"],
-  argTypes: {
-    children: {
-      control: { type: "text" },
-      name: "Button title",
+    title: "Example/Button",
+    component: Button,
+    tags: ["docsPage"],
+    argTypes: {
     },
-    animation: {
-      control: { type: "select" },
-      options: ["scale", "ripple", "jump", "none"],
-      name: "Click animation",
-      description: "Select animation after clicking",
-    },
-  },
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
-  args: {
-    children: "Button",
-    animation: "scale",
-  },
-};
+export const Primary: Story = {};
