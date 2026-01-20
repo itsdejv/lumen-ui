@@ -8,6 +8,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/lumen-ui.es.js",
       "require": "./dist/lumen-ui.umd.js"
+    },
+    "./styles.css": {
+      "require": "./dist/styles.css",
+      "default": "./dist/styles.css"
     }
   },
   "files": [
@@ -15,13 +19,15 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build": "tsc && vite build && npm run build:css",
+    "build:css": "tailwindcss -m -i ./src/tailwind.css -o ./dist/styles.css",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "prepublishOnly": "npm run build",
-    "prepare": "npm run build"
+    "storybook": "concurrently \"npm run storybook:css\" \"storybook dev -p 6006\"",
+    "storybook:css": "tailwindcss -w -i ./src/tailwind.css -o ./src/index.css",
+    "build-storybook": "concurrently \"npm run build-storybook:css\" \"storybook build\"",
+    "build-storybook:css": "tailwindcss -m -i ./src/tailwind.css -o ./src/index.css",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "react": "^19.2.0",
@@ -34,6 +40,7 @@
     "@storybook/addon-docs": "^10.1.11",
     "@storybook/addon-vitest": "^10.1.11",
     "@storybook/react-vite": "^10.1.11",
+    "@tailwindcss/cli": "^4.1.18",
     "@tailwindcss/vite": "^4.1.18",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
