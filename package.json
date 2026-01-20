@@ -3,15 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/ui.es.js",
-      "require": "./dist/ui.umd.js"
-    },
-    "./styles.css": {
-      "require": "./dist/styles.css",
-      "default": "./dist/styles.css"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/lumen-ui.es.js",
+      "require": "./dist/lumen-ui.umd.js"
     }
   },
   "files": [
