@@ -33,7 +33,8 @@ const buttonVariants = cva(
       {
         variant: "solid",
         intent: "primary",
-        className: "bg-primary text-primary-foreground",
+        className:
+          "bg-primary text-primary-foreground  hover:bg-primary/90 hover:shadow-md hover:shadow-primary/30",
       },
       {
         variant: "solid",
