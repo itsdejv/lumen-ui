@@ -12,8 +12,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         solid: "",
-        outline: "",
+        outline: "bg-transparent ring-2 ring-inset hover:text-white",
         ghost: "",
+        bordered: "bg-transparent ring-2 ring-inset",
       },
       size: {
         m: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -33,13 +34,23 @@ const buttonVariants = cva(
       {
         variant: "solid",
         intent: "primary",
-        className:
-          "bg-primary text-primary-foreground  hover:bg-primary/90 hover:shadow-md hover:shadow-primary/30",
+        className: "bg-primary text-primary-foreground hover:bg-primary/90",
       },
       {
         variant: "solid",
         intent: "secondary",
         className: "bg-secondary text-secondary-foreground",
+      },
+      {
+        variant: "outline",
+        intent: "primary",
+        className: "text-primary ring-primary hover:bg-primary",
+      },
+      {
+        variant: "bordered",
+        intent: "primary",
+        className:
+          "text-primary ring-primary hover:bg-primary/10 hover:text-primary/80 hover:ring-primary/80",
       },
     ],
     defaultVariants: {
