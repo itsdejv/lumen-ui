@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./button";
+import { ArrowRight, Mail } from "lucide-react";
 
 const meta = {
   title: "Example/Button",
@@ -22,7 +23,7 @@ const meta = {
     },
     size: {
       control: "select",
-      options: ["m"],
+      options: ["small", "medium", "large"],
     },
     animation: {
       control: "select",
@@ -38,7 +39,7 @@ const meta = {
     children: "Button",
     intent: "primary",
     variant: "solid",
-    size: "m",
+    size: "medium",
     animation: "scale",
   },
 } satisfies Meta<typeof Button>;
@@ -46,4 +47,25 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {};
+export const Primary: Story = {
+  render: (args) => (
+    <div className="flex flex-wrap flex-col items-center gap-6">
+      <div className="flex flex-col gap-2">
+        <span className="text-xs text-gray-400">Standard</span>
+        <Button {...args} />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <span className="text-xs text-gray-400">Left Icon</span>
+        <Button {...args} startIcon={<Mail size={16} />} />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <span className="text-xs text-gray-400">Right Set</span>
+        <Button {...args} startIcon={<Mail />} endIcon={<ArrowRight />}>
+          Odeslat
+        </Button>
+      </div>
+    </div>
+  ),
+};

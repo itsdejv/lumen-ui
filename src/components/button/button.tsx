@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, VariantProps } from "class-variance-authority";
 import { cn } from "../../utils/utils.ts";
@@ -19,7 +19,9 @@ const buttonVariants = cva(
         ghost: "bg-transparent",
       },
       size: {
-        m: "h-9 px-4 py-2 has-[>svg]:px-3",
+        small: "text-xs h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
+        medium: "text-sm h-9 px-4 py-2 has-[>svg]:px-3",
+        large: "text-md h-10 rounded-md px-6 has-[>svg]:px-4",
       },
       radius: {
         none: "rounded-none",
@@ -71,7 +73,7 @@ const buttonVariants = cva(
     defaultVariants: {
       radius: "medium",
       variant: "solid",
-      size: "m",
+      size: "medium",
       intent: "primary",
       animation: "scale",
     },
@@ -83,11 +85,34 @@ interface ButtonProps
     ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
 }
 
 export const Button = (props: ButtonProps) => {
-  const { asChild, size, animation, variant, intent, radius, ...restProps } =
-    props;
+  const {
+    asChild,
+    size,
+    animation,
+    variant,
+    intent,
+    radius,
+    children,
+    startIcon,
+    endIcon,
+    ...restProps
+  } = props;
+
+  const iconSizes = {
+    small: "size-3.5",
+    medium: "size-4",
+    large: "size-5",
+  };
+
+  const iconClass = cn(
+    "inline-flex shrink-0 items-center justify-center [&_svg]:size-full",
+    iconSizes[size ?? "medium"],
+  );
 
   const Comp = asChild ? Slot : "button";
 
@@ -97,6 +122,10 @@ export const Button = (props: ButtonProps) => {
         buttonVariants({ size, animation, variant, intent, radius }),
       )}
       {...restProps}
-    />
+    >
+      {startIcon && <span className={iconClass}>{startIcon}</span>}
+      {children}
+      {endIcon && <span className={iconClass}>{endIcon}</span>}
+    </Comp>
   );
 };
