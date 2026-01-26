@@ -33,14 +33,22 @@ const meta = {
       control: "select",
       options: ["none", "small", "medium", "large", "full"],
     },
+    isLoading: {
+      control: "boolean",
+    },
+    loaderPosition: {
+      options: ["center", "icon"],
+    },
   },
   args: {
+    loaderPosition: "icon",
     radius: "medium",
     children: "Button",
     intent: "primary",
     variant: "solid",
     size: "medium",
     animation: "scale",
+    isLoading: false,
   },
 } satisfies Meta<typeof Button>;
 
@@ -57,11 +65,11 @@ export const Primary: Story = {
 
       <div className="flex flex-col gap-2">
         <span className="text-xs text-gray-400">Left Icon</span>
-        <Button {...args} startIcon={<Mail size={16} />} />
+        <Button {...args} startIcon={<Mail />} />
       </div>
 
       <div className="flex flex-col gap-2">
-        <span className="text-xs text-gray-400">Right Set</span>
+        <span className="text-xs text-gray-400">Full Set</span>
         <Button {...args} startIcon={<Mail />} endIcon={<ArrowRight />}>
           Odeslat
         </Button>
