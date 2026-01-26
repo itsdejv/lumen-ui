@@ -7,11 +7,12 @@ import dts from "vite-plugin-dts";
 
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     react(),
     dts({
+      insertTypesEntry: true,
       exclude: ["**/*.stories.tsx", "**/*.test.tsx"],
     }),
-    tailwindcss(),
   ],
   build: {
     lib: {
