@@ -9,11 +9,7 @@
       "import": "./dist/lumen-ui.es.js",
       "require": "./dist/lumen-ui.umd.js"
     },
-    "./style.css": {
-      "import": "./dist/lumen-ui.css",
-      "require": "./dist/lumen-ui.css",
-      "default": "./dist/lumen-ui.css"
-    }
+    "./style.css": "./dist/style.css"
   },
   "files": [
     "dist"

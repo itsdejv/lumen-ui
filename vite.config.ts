@@ -23,7 +23,15 @@ export default defineConfig({
     },
     rollupOptions: {
       external: Object.keys(peerDependencies),
-      output: { globals: { react: "React", "react-dom": "ReactDOM" } },
+      output: {
+        globals: { react: "React", "react-dom": "ReactDOM" },
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.names?.[0]?.endsWith(".css")) {
+            return "style.css";
+          }
+          return "[name].[ext]";
+        },
+      },
     },
   },
 });
