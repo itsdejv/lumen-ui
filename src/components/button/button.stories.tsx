@@ -18,7 +18,7 @@ const meta = {
     },
     variant: {
       control: "select",
-      options: ["solid", "outline", "ghost", "bordered"],
+      options: ["solid", "outline", "ghost", "bordered", "soft"],
     },
     size: {
       control: "select",
@@ -28,8 +28,13 @@ const meta = {
       control: "select",
       options: ["none", "scale", "ripple", "jump"],
     },
+    radius: {
+      control: "select",
+      options: ["none", "small", "medium", "large", "full"],
+    },
   },
   args: {
+    radius: "medium",
     children: "Button",
     intent: "primary",
     variant: "solid",

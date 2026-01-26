@@ -5,19 +5,28 @@ import { cn } from "../../utils/utils.ts";
 
 const buttonVariants = cva(
   cn(
-    "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm",
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm",
     "font-medium transition-all cursor-pointer",
+    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
   ),
   {
     variants: {
       variant: {
         solid: "",
         outline: "bg-transparent ring-2 ring-inset hover:text-white",
-        ghost: "",
         bordered: "bg-transparent ring-2 ring-inset",
+        soft: "bg-transparent",
+        ghost: "bg-transparent",
       },
       size: {
         m: "h-9 px-4 py-2 has-[>svg]:px-3",
+      },
+      radius: {
+        none: "rounded-none",
+        small: "rounded-sm",
+        medium: "rounded-md",
+        large: "rounded-lg",
+        full: "rounded-full",
       },
       intent: {
         primary: "",
@@ -37,11 +46,6 @@ const buttonVariants = cva(
         className: "bg-primary text-primary-foreground hover:bg-primary/90",
       },
       {
-        variant: "solid",
-        intent: "secondary",
-        className: "bg-secondary text-secondary-foreground",
-      },
-      {
         variant: "outline",
         intent: "primary",
         className: "text-primary ring-primary hover:bg-primary",
@@ -52,8 +56,20 @@ const buttonVariants = cva(
         className:
           "text-primary ring-primary hover:bg-primary/10 hover:text-primary/80 hover:ring-primary/80",
       },
+      {
+        variant: "soft",
+        intent: "primary",
+        className:
+          "bg-primary/30 text-primary/90 hover:bg-primary/20 hover:text-primary-80",
+      },
+      {
+        variant: "ghost",
+        intent: "primary",
+        className: "text-primary hover:bg-primary/20 hover:text-primary-80",
+      },
     ],
     defaultVariants: {
+      radius: "medium",
       variant: "solid",
       size: "m",
       intent: "primary",
@@ -70,13 +86,16 @@ interface ButtonProps
 }
 
 export const Button = (props: ButtonProps) => {
-  const { asChild, size, animation, variant, intent, ...restProps } = props;
+  const { asChild, size, animation, variant, intent, radius, ...restProps } =
+    props;
 
   const Comp = asChild ? Slot : "button";
 
   return (
     <Comp
-      className={cn(buttonVariants({ size, animation, variant, intent }))}
+      className={cn(
+        buttonVariants({ size, animation, variant, intent, radius }),
+      )}
       {...restProps}
     />
   );
