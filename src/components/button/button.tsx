@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, ReactNode } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, VariantProps } from "class-variance-authority";
 import { cn } from "../../utils/utils.ts";
-import { Spinner } from "./spinner.tsx";
+import { Spinner } from "../spinner/spinner.tsx";
 
 const buttonVariants = cva(
   cn(
@@ -124,9 +124,11 @@ export const Button = (props: ButtonProps) => {
     iconSizes[size ?? "medium"],
   );
 
+  const isCenteredLoader = isLoading && loaderPosition === "center";
+  const isIconLoader = isLoading && loaderPosition === "icon";
+  const contentVisibilityClass = isCenteredLoader ? "invisible" : "";
+
   const Comp = asChild ? Slot : "button";
-  const hiddenViaLoading =
-    loaderPosition === "center" && isLoading && "invisible";
 
   return (
     <Comp
@@ -134,29 +136,35 @@ export const Button = (props: ButtonProps) => {
       className={cn(
         buttonVariants({ size, animation, variant, intent, radius }),
         isLoading && "pointer-events-none",
+        "relative",
       )}
       {...restProps}
     >
-      {isLoading && loaderPosition === "center" && (
-        <span
-          className={cn(iconClass, loaderPosition === "center" && "absolute")}
-        >
+      {/* CENTER LOADER: Rendered absolutely over the hidden content */}
+      {isCenteredLoader && (
+        <span className={cn(iconClass, "absolute")}>
           {spinner ?? <Spinner />}
         </span>
       )}
 
-      {isLoading && (
-        <span className={cn(iconClass, hiddenViaLoading)}>
-          {spinner ?? <Spinner />}
+      {/* ICON LOADER: Replaces the icon slot and maintains space in the layout */}
+      {isIconLoader && (
+        <span className={cn(iconClass)}>{spinner ?? <Spinner />}</span>
+      )}
+
+      {/* START ICON: Rendered only if the loader isn't already occupying the icon slot */}
+      {!isIconLoader && startIcon && (
+        <span className={cn(iconClass, contentVisibilityClass)}>
+          {startIcon}
         </span>
       )}
 
-      {!isLoading && startIcon && (
-        <span className={cn(iconClass, hiddenViaLoading)}>{startIcon}</span>
-      )}
-      <span className={cn(hiddenViaLoading)}>{children}</span>
+      {/* CHILDREN: Main button text/content */}
+      <span className={cn(contentVisibilityClass)}>{children}</span>
+
+      {/* END ICON: Always hidden if center loader is active */}
       {endIcon && (
-        <span className={cn(iconClass, hiddenViaLoading)}>{endIcon}</span>
+        <span className={cn(iconClass, contentVisibilityClass)}>{endIcon}</span>
       )}
     </Comp>
   );
