@@ -7,36 +7,54 @@ const meta = {
   component: Button,
   tags: ["docsPage"],
   argTypes: {
+    asChild: {
+      table: {
+        disable: true,
+      },
+    },
+    startIcon: {
+      table: {
+        disable: true,
+      },
+    },
+    endIcon: {
+      table: {
+        disable: true,
+      },
+    },
+    spinner: {
+      table: {
+        disable: true,
+      },
+    },
     children: {
       control: "text",
     },
-    asChild: {
-      control: "boolean",
-    },
     intent: {
-      control: "select",
+      control: "inline-radio",
       options: ["primary", "secondary"],
     },
     variant: {
-      control: "select",
+      control: "inline-radio",
       options: ["solid", "outline", "ghost", "bordered", "soft"],
     },
     size: {
-      control: "select",
+      control: "inline-radio",
       options: ["small", "medium", "large"],
     },
     animation: {
-      control: "select",
+      control: "inline-radio",
       options: ["none", "scale", "ripple", "jump"],
     },
     radius: {
-      control: "select",
+      control: "inline-radio",
       options: ["none", "small", "medium", "large", "full"],
     },
     isLoading: {
       control: "boolean",
     },
     loaderPosition: {
+      control: "inline-radio",
       options: ["center", "icon"],
     },
   },
