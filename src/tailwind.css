@@ -1,11 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-    --color-primary: hsl(245 82% 62%);
+    --color-primary: hsl(263 45% 56%);
     --color-primary-foreground: hsl(0 0% 100%);
 
-    --color-secondary: hsl(245 15% 95%);
+    --color-secondary:  hsl(16 100% 72%);
     --color-secondary-foreground: hsl(245 50% 20%);
+    --color-focus: hsl(245 82% 62%);
+
+    --color-success: hsl(142 70% 45%);
+    --color-success-foreground: hsl(0 0% 100%);
+
+    --color-error: hsl(0 84% 60%);
+    --color-error-foreground: hsl(0 0% 100%);
+
+    --color-warning: hsl(35 92% 55%);
+    --color-warning-foreground: hsl(35 92% 30%);
 }
 
 @layer base {

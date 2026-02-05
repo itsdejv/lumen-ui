@@ -20,6 +20,7 @@
     --color-primary-foreground: hsl(0 0% 100%);
     --color-secondary: hsl(245 15% 95%);
     --color-secondary-foreground: hsl(245 50% 20%);
+    --color-focus: hsl(245 82% 62%)
   }
 }
 @layer base {
