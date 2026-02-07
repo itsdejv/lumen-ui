@@ -2,36 +2,32 @@ import { cva, VariantProps } from "class-variance-authority";
 import { ComponentProps, forwardRef } from "react";
 import { cn } from "../../utils/utils.ts";
 import { Input as InputPrimitive } from "@base-ui/react";
+import { useFieldContext } from "../field/context/FieldContext.tsx";
 
 const inputVariants = cva(
   cn(
     "relative outline-none transition-all",
     "focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2",
+    "disabled:pointer-events-none disabled:opacity-50",
   ),
   {
     variants: {
       variant: {
-        soft: cn(
-          "bg-[var(--input-color)]/10 hover:bg-[var(--input-color)]/20",
-          "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[var(--input-color)]/10",
-        ),
-        ghost: cn(
-          "bg-transparent hover:bg-[var(--input-color)]/10",
-          "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent",
-        ),
+        soft: cn("bg-[var(--input-color)]/10 hover:bg-[var(--input-color)]/20"),
+        ghost: cn("bg-transparent hover:bg-[var(--input-color)]/10"),
         outline: cn(
           "border border-[var(--input-color)] bg-[var(--input-color)]/5 hover:bg-[var(--input-color)]/10 hover:border-[var(--input-color)]/60",
-          "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[var(--input-color)]/5 disabled:hover:border-[var(--input-color)]/40",
         ),
         "outline-soft": cn(
           "border border-[var(--input-color)]/40 bg-[var(--input-color)]/5 hover:bg-[var(--input-color)]/10 hover:border-[var(--input-color)]/60",
-          "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[var(--input-color)]/5 disabled:hover:border-[var(--input-color)]/40",
         ),
       },
       intent: {
         primary: "[--input-color:var(--color-primary)]",
         secondary: "[--input-color:var(--color-secondary)]",
         error: "[--input-color:var(--color-error)]",
+        success: "[--input-color:var(--color-success)]",
+        warning: "[--input-color:var(--color-warning)]",
       },
       inputSize: {
         small: "text-xs h-8 rounded-md gap-1.5 px-1.5 has-[>svg]:px-2.5",
@@ -66,28 +62,34 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     variant,
     inputSize,
     intent,
-    error,
+    error: propError,
     radius,
     unstyled,
+    disabled: propDisabled,
     ...restProps
   } = props;
 
+  const fieldContext = useFieldContext?.();
+
+  const error = fieldContext?.error ?? propError;
+  const disabled = fieldContext?.disabled ?? propDisabled;
+
   return (
-    <>
-      <InputPrimitive
-        ref={ref}
-        className={cn(
-          !unstyled &&
-            inputVariants({
-              variant,
-              inputSize,
-              intent: error ? "error" : intent,
-              radius,
-            }),
-          className,
-        )}
-        {...restProps}
-      />
-    </>
+    <InputPrimitive
+      ref={ref}
+      disabled={disabled}
+      className={cn(
+        !unstyled &&
+          inputVariants({
+            variant,
+            inputSize,
+            intent: error ? "error" : intent,
+            radius,
+          }),
+        className,
+      )}
+      aria-invalid={error}
+      {...restProps}
+    />
   );
 });

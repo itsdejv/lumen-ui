@@ -20,7 +20,9 @@
     --color-primary-foreground: hsl(0 0% 100%);
     --color-secondary: hsl(245 15% 95%);
     --color-secondary-foreground: hsl(245 50% 20%);
-    --color-focus: hsl(245 82% 62%)
+    --color-focus: hsl(245 82% 62%);
+    --color-muted: hsl(245 10% 96%);
+    --color-muted-foreground: hsl(245 10% 45%);
   }
 }
 @layer base {
