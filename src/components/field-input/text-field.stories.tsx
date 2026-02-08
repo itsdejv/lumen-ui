@@ -6,9 +6,9 @@ const meta = {
   component: TextField,
   tags: ["docsPage"],
   argTypes: {
-    size: {
+    variant: {
       control: "inline-radio",
-      options: ["small", "medium", "large"],
+      options: ["soft", "ghost", "large"],
     },
     radius: {
       control: "inline-radio",
