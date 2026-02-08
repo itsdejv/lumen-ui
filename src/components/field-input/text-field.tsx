@@ -5,6 +5,7 @@ import { cn } from "../../utils/utils.ts";
 
 const textFieldInputVariants = cva(
   cn(
+    "h-[var(--input-height)] px-[var(--input-px)] pt-[var(--input-pt)]",
     "relative outline-none",
     "focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2",
     "disabled:pointer-events-none disabled:opacity-50",
@@ -13,10 +14,17 @@ const textFieldInputVariants = cva(
     variants: {
       variant: {
         soft: "peer bg-[var(--input-color)]/10 hover:bg-[var(--input-color)]/20",
-        ghost: cn(
-          "peer bg-transparent border-b-2 border-foreground",
+        underline: cn(
+          "peer bg-transparent bg-[length:100%_2px] bg-no-repeat bg-bottom duration-300 ease-in-out",
+          "bg-gradient-to-r from-[var(--input-color)] to-[var(--input-color)]",
           "hover:bg-[var(--input-color)]/10 hover:[var(--input-color)]",
           "focus:border-[var(--input-color)] focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:bg-[var(--input-color)]/10",
+        ),
+        "hover-underline": cn(
+          "peer bg-transparent bg-[length:0%_2px] bg-no-repeat bg-bottom transition-[background-size] duration-300 ease-in-out",
+          "bg-gradient-to-r from-[var(--input-color)] to-[var(--input-color)]",
+          "hover:bg-[var(--input-color)]/10 hover:bg-[length:100%_2px]",
+          "focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:bg-[var(--input-color)]/10 focus-visible:bg-[length:100%_2px]",
         ),
       },
       intent: {
@@ -27,9 +35,12 @@ const textFieldInputVariants = cva(
         warning: "[--input-color:var(--color-warning)]",
       },
       size: {
-        small: "text-xs h-8 rounded-md gap-1.5 px-1.5 has-[>svg]:px-2.5",
-        medium: "text-sm h-11 px-1.5 pt-4 pb-0.5 has-[>svg]:px-3",
-        large: "text-md h-10 rounded-md px-1.5 has-[>svg]:px-4",
+        small:
+          "[--input-height:theme(spacing.9)] [--input-px:theme(spacing.[1.5])] [--input-pt:theme(spacing.3)]",
+        medium:
+          "[--input-height:theme(spacing.11)] [--input-px:theme(spacing.[1.5])] [--input-pt:theme(spacing.3)]",
+        large:
+          "[--input-height:theme(spacing.14)] [--input-px:theme(spacing.[1.5])] [--input-pt:theme(spacing.4)]",
       },
       radius: {
         none: "rounded-none",
@@ -39,6 +50,18 @@ const textFieldInputVariants = cva(
         full: "rounded-full",
       },
     },
+    compoundVariants: [
+      {
+        variant: "soft",
+        radius: "full",
+        className: "pl-4",
+      },
+      {
+        variant: "underline",
+        radius: "full",
+        className: "rounded-xl",
+      },
+    ],
     defaultVariants: {
       variant: "soft",
       intent: "primary",
@@ -52,22 +75,59 @@ const textFieldLabelVariants = cva(cn(), {
   variants: {
     variant: {
       soft: cn(
-        "absolute origin-left start-1.5 text-sm scale-75 top-0.5 duration-300",
-        "peer-focus:text-primary peer-focus:text-sm peer-focus:scale-75 peer-focus:top-0.5",
-        "peer-placeholder-shown:text-base peer-placeholder-shown:scale-100 peer-placeholder-shown:top-2.5",
+        "absolute origin-left start-1.5 text-[length:var(--input-text-size)] scale-75 top-[var(--input-label-top)] duration-300",
+        "peer-focus:text-primary peer-focus:text-[length:var(--input-text-size)] peer-focus:scale-75 peer-focus:top-[var(--input-label-top)]",
+        "peer-placeholder-shown:text-[length:var(--input-text-size)] peer-placeholder-shown:scale-100 peer-placeholder-shown:top-[var(--input-placeholder-shown)]",
       ),
-      ghost: cn(
-        "absolute origin-left start-1.5 text-sm scale-75 top-0.5 duration-300",
-        "peer-focus:text-primary peer-focus:text-sm peer-focus:scale-75 peer-focus:top-0.5",
-        "peer-placeholder-shown:text-sm peer-placeholder-shown:scale-100 peer-placeholder-shown:top-4",
+      underline: cn(
+        "absolute origin-left start-1.5 text-[length:var(--input-text-size)] scale-75 top-[var(--input-label-top)] duration-300",
+        "peer-focus:text-primary peer-focus:text-[length:var(--input-text-size)] peer-focus:scale-75 peer-focus:top-[var(--input-label-top)]",
+        "peer-placeholder-shown:text-[length:var(--input-text-size)] peer-placeholder-shown:scale-100 peer-placeholder-shown:top-[var(--input-placeholder-shown)]",
+      ),
+      "hover-underline": cn(
+        "absolute origin-left start-1.5 text-[length:var(--input-text-size)] scale-75 top-[var(--input-label-top)] duration-300",
+        "peer-focus:text-primary peer-focus:text-[length:var(--input-text-size)] peer-focus:scale-75 peer-focus:top-[var(--input-label-top)]",
+        "peer-placeholder-shown:text-[length:var(--input-text-size)] peer-placeholder-shown:scale-100 peer-placeholder-shown:top-[var(--input-placeholder-shown)]",
       ),
     },
-    size: {
+    radius: {
+      none: "",
       small: "",
       medium: "",
       large: "",
+      full: "",
+    },
+    size: {
+      small:
+        "[--input-text-size:theme(fontSize.sm)] [--input-label-top:calc(theme(spacing.[0.5])*-1)] [--input-placeholder-shown:theme(spacing.3)]",
+      medium:
+        "[--input-text-size:theme(fontSize.sm)] [--input-label-top:theme(spacing.[0.5])] [--input-placeholder-shown:theme(spacing.4)]",
+      large:
+        "[--input-text-size:theme(fontSize.base)] [--input-label-top:theme(spacing.[0.5])] [--input-placeholder-shown:theme(spacing.6)]",
     },
   },
+  compoundVariants: [
+    {
+      variant: "soft",
+      radius: "full",
+      className: "start-4",
+    },
+    {
+      variant: "soft",
+      size: "small",
+      className: "[--input-placeholder-shown:theme(spacing.2)]",
+    },
+    {
+      variant: "soft",
+      size: "medium",
+      className: "[--input-placeholder-shown:theme(spacing.3)]",
+    },
+    {
+      variant: "soft",
+      size: "large",
+      className: "[--input-placeholder-shown:theme(spacing.4)]",
+    },
+  ],
   defaultVariants: {
     variant: "soft",
     size: "medium",
@@ -89,12 +149,13 @@ export const TextField = (props: TextFieldProps) => {
           placeholder=" "
           className={cn(
             textFieldInputVariants({ radius, variant, size }),
-            variant === "ghost" && "rounded-b-none",
+            variant === "underline" && "rounded-b-none",
+            variant === "hover-underline" && "rounded-b-none",
           )}
         />
         <FieldLabel
           unstyled
-          className={cn(textFieldLabelVariants({ variant, size }))}
+          className={cn(textFieldLabelVariants({ variant, size, radius }))}
         >
           E-mail
         </FieldLabel>

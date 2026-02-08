@@ -8,7 +8,11 @@ const meta = {
   argTypes: {
     variant: {
       control: "inline-radio",
-      options: ["soft", "ghost", "large"],
+      options: ["soft", "underline", "hover-underline"],
+    },
+    size: {
+      control: "inline-radio",
+      options: ["small", "medium", "large"],
     },
     radius: {
       control: "inline-radio",
