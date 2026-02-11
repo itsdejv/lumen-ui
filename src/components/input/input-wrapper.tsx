@@ -14,12 +14,19 @@ export const InputWrapper = ({
   radius,
   size,
   className,
+  "focus-outline": focusOutline,
   ...props
 }: InputWrapperProps) => {
   return (
     <div
       className={cn(
-        inputWrapperVariants({ variant, intent, radius, size }),
+        inputWrapperVariants({
+          variant,
+          intent,
+          radius,
+          size,
+          "focus-outline": focusOutline,
+        }),
         className,
       )}
       {...props}
