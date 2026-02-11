@@ -29,6 +29,13 @@ export const InputWrapper = ({
         }),
         className,
       )}
+      onClick={(e) => {
+        if ((e.target as HTMLElement).closest("button")) {
+          return;
+        }
+
+        e.currentTarget.parentElement?.querySelector("input")?.focus();
+      }}
       {...props}
     />
   );
