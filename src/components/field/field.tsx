@@ -49,10 +49,8 @@ const FieldLabel = (props: FieldLabelProps) => {
     <Label
       data-slot="field-label"
       className={cn(
-        cn(
-          "text-sm font-medium leading-none",
-          "peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
-        ),
+        "text-sm font-medium leading-none",
+        "peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
         className,
       )}
       {...restProps}

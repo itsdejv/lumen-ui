@@ -4,9 +4,12 @@ import {
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
+  InputGroupText,
 } from "./input-group.tsx";
 import { Field, FieldDescription, FieldLabel } from "../field/field.tsx";
 import { Search } from "lucide-react";
+import { InputField } from "../field-input/input-field.tsx";
+import { Input } from "../input/input.tsx";
 
 const meta = {
   title: "Example/Input Group",
@@ -51,20 +54,24 @@ export const Primary: Story = {
     <div className="flex justify-center items-center">
       <div>
         <Field>
-          <FieldLabel>Label</FieldLabel>
           <InputGroup {...args}>
             <InputGroupInput placeholder="E-mail" />
             <InputGroupAddon>
-              <InputGroupButton variant="ghost" size="icon-small">
+              <InputGroupButton variant="soft">
                 <Search size={16} />
               </InputGroupButton>
             </InputGroupAddon>
             <InputGroupAddon align="inline-end">
-              <InputGroupButton variant="ghost">Test</InputGroupButton>
+              <InputGroupText>Loading...</InputGroupText>
             </InputGroupAddon>
           </InputGroup>
-          <FieldDescription>Please enter something good here.</FieldDescription>
         </Field>
+      </div>
+      <div>
+        <Input placeholder="input" />
+      </div>
+      <div>
+        <InputField label="Label" />
       </div>
     </div>
   ),

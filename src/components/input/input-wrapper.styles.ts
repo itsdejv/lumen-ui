@@ -1,13 +1,13 @@
 import { cva } from "class-variance-authority";
+import { cn } from "../../utils/utils.ts";
 
 export const inputWrapperVariants = cva(
   [
     "relative w-max transition-all cursor-text",
-    "px-[var(--input-px)] py-[var(--input-py)]",
     "data-[invalid=true]:border-error",
     "has-[[data-role=main-input]:disabled]:pointer-events-none",
     "has-[[data-role=main-input]:disabled]:opacity-50",
-    "hover:bg-[var(--input-bg-color)]/10",
+    "hover:bg-[var(--input-bg-color)]/10 text-[length:var(--input-font-size)]",
     "has-[[data-role=main-input]:focus-visible]:bg-[var(--input-bg-color)]/10",
   ],
   {
@@ -50,8 +50,10 @@ export const inputWrapperVariants = cva(
         medium: "rounded-md",
       },
       size: {
-        medium:
-          "[--input-px:theme(spacing.[1.5])] [--input-py:theme(spacing.2)]",
+        medium: cn(
+          "[--input-px:theme(spacing.[1.5])] [--input-py:theme(spacing.2)] [--input-group-addon-py:theme(spacing.[1.5])]",
+          "[--input-font-size:theme(fontSize.sm)]",
+        ),
       },
     },
     compoundVariants: [

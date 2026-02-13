@@ -24,12 +24,7 @@ const InputGroup = ({ className, disabled, ...props }: InputGroupProps) => {
       <InputWrapper
         data-slot="input-group"
         role="group"
-        className={cn(
-          "flex",
-          "[&>[data-slot='input-group-addon']:first-of-type]:pl-0 [&>[data-slot='input-group-addon']:last-of-type]:pr-0",
-          "**:data-[role=main-input]:px-1.5",
-          className,
-        )}
+        className={cn("flex", "**:data-[role=main-input]:px-1.5", className)}
         {...props}
       />
     </InputGroupContext.Provider>
@@ -57,14 +52,14 @@ const InputGroupAddon = ({
         e.currentTarget.parentElement?.querySelector("input")?.focus();
       }}
       {...props}
-    ></div>
+    />
   );
 };
 
 interface InputGroupTextProps extends ComponentProps<"span"> {}
 
 const InputGroupText = ({ className, ...props }: InputGroupTextProps) => {
-  return <span className={cn(className)} {...props} />;
+  return <span className={cn("", className)} {...props} />;
 };
 
 interface InputGroupInputProps extends ComponentProps<"input"> {}
@@ -82,37 +77,25 @@ const InputGroupInput = ({ className, ...props }: InputGroupInputProps) => {
   );
 };
 
-const inputGroupButtonVariants = cva(
-  "gap-2 text-sm shadow-none flex items-center",
-  {
-    variants: {
-      size: {
-        small: "h-6 gap-1 px-1.5 [&>svg:not([class*='size-'])]:size-3.5",
-        medium: "",
-        "icon-small": "size-6 p-0 has-[>svg]:p-0",
-        "icon-medium": "size-8 p-0 has-[>svg]:p-0",
-      },
-    },
-    defaultVariants: {
-      size: "small",
-    },
+const inputGroupButtonVariants = cva("text-sm h-full px-1.5", {
+  variants: {},
+  defaultVariants: {
+    size: "small",
   },
-);
+});
 
 function InputGroupButton({
   className,
   type = "button",
   variant = "ghost",
-  size,
   ...props
 }: Omit<ComponentProps<typeof Button>, "size"> &
   VariantProps<typeof inputGroupButtonVariants>) {
   return (
     <Button
       type={type}
-      data-size={size}
       variant={variant}
-      className={cn(inputGroupButtonVariants({ size }), className)}
+      className={cn(inputGroupButtonVariants({}), className)}
       {...props}
     />
   );
