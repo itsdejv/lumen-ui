@@ -4,21 +4,17 @@ import {
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
+  InputGroupInputField,
   InputGroupText,
 } from "./input-group.tsx";
-import { Field, FieldDescription, FieldLabel } from "../field/field.tsx";
+import { Field } from "../field/field.tsx";
 import { Search } from "lucide-react";
-import { InputField } from "../field-input/input-field.tsx";
-import { Input } from "../input/input.tsx";
 
 const meta = {
   title: "Example/Input Group",
   component: InputGroup,
   tags: ["docsPage"],
   argTypes: {
-    disabled: {
-      control: "boolean",
-    },
     variant: {
       control: "inline-radio",
       options: [
@@ -30,9 +26,20 @@ const meta = {
         "underline-hover",
       ],
     },
+    "aria-invalid": {
+      control: "boolean",
+    },
+    size: {
+      control: "inline-radio",
+      options: ["small", "medium", "large"],
+    },
+    radius: {
+      control: "inline-radio",
+      options: ["none", "small", "medium", "large", "full"],
+    },
     intent: {
       control: "inline-radio",
-      options: ["primary"],
+      options: ["primary", "secondary", "success", "error", "muted"],
     },
     "focus-outline": {
       control: "boolean",
@@ -40,7 +47,9 @@ const meta = {
   },
   args: {
     disabled: false,
-    variant: "outline",
+    "aria-invalid": "false",
+    size: "medium",
+    radius: "medium",
     intent: "primary",
     "focus-outline": false,
   },
@@ -51,14 +60,15 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   render: ({ ...args }) => (
-    <div className="flex justify-center items-center">
+    <div className="flex flex-col gap-5 justify-center items-center">
       <div>
+        <span className="h-2">Normal input</span>
         <Field>
           <InputGroup {...args}>
             <InputGroupInput placeholder="E-mail" />
             <InputGroupAddon>
               <InputGroupButton variant="soft">
-                <Search size={16} />
+                <Search />
               </InputGroupButton>
             </InputGroupAddon>
             <InputGroupAddon align="inline-end">
@@ -67,11 +77,22 @@ export const Primary: Story = {
           </InputGroup>
         </Field>
       </div>
+
       <div>
-        <Input placeholder="input" />
-      </div>
-      <div>
-        <InputField label="Label" />
+        <span className="h-2">Field input</span>
+        <Field>
+          <InputGroup {...args}>
+            <InputGroupInputField label="Label" />
+            <InputGroupAddon>
+              <InputGroupButton variant="soft">
+                <Search />
+              </InputGroupButton>
+            </InputGroupAddon>
+            <InputGroupAddon align="inline-end">
+              <InputGroupText>Loading...</InputGroupText>
+            </InputGroupAddon>
+          </InputGroup>
+        </Field>
       </div>
     </div>
   ),

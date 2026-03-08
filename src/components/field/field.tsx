@@ -4,7 +4,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { ComponentProps, useMemo } from "react";
 
 const fieldVariants = cva(
-  "data-[invalid=true]:text-error group/field flex w-full gap-2",
+  "relative data-[invalid=true]:text-error group/field flex w-full gap-2",
   {
     variants: {
       orientation: {

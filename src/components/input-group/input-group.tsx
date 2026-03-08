@@ -7,6 +7,7 @@ import { InputGroupContext, useInputGroup } from "./input-group.context.tsx";
 import { Input } from "../input/input.tsx";
 import { inputWrapperVariants } from "../input/input-wrapper.styles.ts";
 import { Button } from "../button";
+import { InputField } from "../field-input/input-field.tsx";
 
 interface InputGroupProps
   extends ComponentProps<"div">, VariantProps<typeof inputWrapperVariants> {
@@ -77,12 +78,37 @@ const InputGroupInput = ({ className, ...props }: InputGroupInputProps) => {
   );
 };
 
-const inputGroupButtonVariants = cva("text-sm h-full px-1.5", {
-  variants: {},
-  defaultVariants: {
-    size: "small",
+interface InputGroupInputFieldProps extends ComponentProps<"input"> {
+  label?: string;
+}
+
+const InputGroupInputField = ({ ...props }: InputGroupInputFieldProps) => {
+  const { disabled } = useInputGroup();
+
+  return (
+    <InputField
+      data-slot="input-group-control"
+      disabled={disabled}
+      {...props}
+    />
+  );
+};
+
+const inputGroupButtonVariants = cva(
+  "text-sm h-full px-1.5 [&_svg]:size-[var(--icon-size,16px)]",
+  {
+    variants: {
+      size: {
+        small: "[--icon-size:theme(spacing.4)] h-6 w-6",
+        medium: "[--icon-size:theme(spacing.4)] h-10 w-10",
+        large: "[--icon-size:theme(spacing.4)] h-12 w-12",
+      },
+    },
+    defaultVariants: {
+      size: "small",
+    },
   },
-});
+);
 
 function InputGroupButton({
   className,
@@ -105,6 +131,7 @@ export {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
+  InputGroupInputField,
   InputGroupText,
   InputGroupButton,
 };

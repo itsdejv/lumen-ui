@@ -47,11 +47,23 @@ export const inputWrapperVariants = cva(
           "[--input-border-color:var(--color-primary)] [--input-bg-color:var(--color-primary)]",
       },
       radius: {
+        none: "rounded-none",
+        small: "rounded-sm",
         medium: "rounded-md",
+        large: "rounded-lg",
+        full: "rounded-full",
       },
       size: {
+        small: cn(
+          "[--input-px:theme(spacing.[1.5])] [--input-py:theme(spacing.1)] [--input-group-addon-py:theme(spacing.[1.5])]",
+          "[--input-font-size:theme(fontSize.sm)]",
+        ),
         medium: cn(
           "[--input-px:theme(spacing.[1.5])] [--input-py:theme(spacing.2)] [--input-group-addon-py:theme(spacing.[1.5])]",
+          "[--input-font-size:theme(fontSize.sm)]",
+        ),
+        large: cn(
+          "[--input-px:theme(spacing.[1.5])] [--input-py:theme(spacing.3)] [--input-group-addon-py:theme(spacing.[1.5])]",
           "[--input-font-size:theme(fontSize.sm)]",
         ),
       },
@@ -60,6 +72,11 @@ export const inputWrapperVariants = cva(
       {
         variant: ["underline", "underline-hover"],
         className: "rounded-b-none",
+      },
+      {
+        variant: ["underline", "underline-hover"],
+        radius: ["full"],
+        className: "rounded-t-xl",
       },
     ],
     defaultVariants: {

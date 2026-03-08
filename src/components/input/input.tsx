@@ -6,6 +6,7 @@ import { useInputGroup } from "../input-group/input-group.context.tsx";
 import { InputWrapper } from "./input-wrapper.tsx";
 import { useField } from "../field-input/input-field.context.tsx";
 import { FieldLabel } from "../field/field.tsx";
+import { inputWrapperVariants } from "./input-wrapper.styles.ts";
 
 const inputVariants = cva(
   cn(
@@ -15,10 +16,13 @@ const inputVariants = cva(
 );
 
 interface InputProps
-  extends ComponentProps<"input">, VariantProps<typeof inputVariants> {}
+  extends
+    Omit<ComponentProps<"input">, "size">,
+    VariantProps<typeof inputVariants>,
+    VariantProps<typeof inputWrapperVariants> {}
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, ...props }, ref) => {
+  ({ className, size, ...props }, ref) => {
     const { label, className: fieldClasses } = useField();
     const { isInGroup } = useInputGroup();
 
@@ -41,6 +45,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       return inputElement;
     }
 
-    return <InputWrapper>{inputElement}</InputWrapper>;
+    return (
+      <InputWrapper size={size} {...props}>
+        {inputElement}
+      </InputWrapper>
+    );
   },
 );
