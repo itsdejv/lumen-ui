@@ -11,8 +11,8 @@ interface InputFieldProps extends VariantProps<typeof inputWrapperVariants> {
 
 const inputFieldVariants = cva("", {
   variants: {
-    variant: {
-      soft: cn(
+    effect: {
+      floating: cn(
         "absolute origin-left start-1.5 duration-300 scale-75 top-0.5",
         "peer-focus:scale-75 peer-focus:top-0.5 peer-focus:text-primary",
         "peer-placeholder-shown:top-3 peer-placeholder-shown:scale-100",
@@ -21,7 +21,7 @@ const inputFieldVariants = cva("", {
     intent: {},
   },
   defaultVariants: {
-    variant: "soft",
+    effect: "floating",
   },
 });
 
