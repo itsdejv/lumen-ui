@@ -4,33 +4,34 @@ import { XIcon } from "lucide-react";
 import { ComponentProps } from "react";
 import { cn } from "../../utils/utils.ts";
 import { Button } from "../button";
+import { cva, VariantProps } from "class-variance-authority";
 
-function Dialog({ ...props }: ComponentProps<typeof DialogPrimitive.Root>) {
+const Dialog = ({ ...props }: ComponentProps<typeof DialogPrimitive.Root>) => {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
-}
+};
 
-function DialogTrigger({
+const DialogTrigger = ({
   ...props
-}: ComponentProps<typeof DialogPrimitive.Trigger>) {
+}: ComponentProps<typeof DialogPrimitive.Trigger>) => {
   return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
-}
+};
 
-function DialogPortal({
+const DialogPortal = ({
   ...props
-}: ComponentProps<typeof DialogPrimitive.Portal>) {
+}: ComponentProps<typeof DialogPrimitive.Portal>) => {
   return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
-}
+};
 
-function DialogClose({
+const DialogClose = ({
   ...props
-}: ComponentProps<typeof DialogPrimitive.Close>) {
+}: ComponentProps<typeof DialogPrimitive.Close>) => {
   return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
-}
+};
 
-function DialogOverlay({
+const DialogOverlay = ({
   className,
   ...props
-}: ComponentProps<typeof DialogPrimitive.Overlay>) {
+}: ComponentProps<typeof DialogPrimitive.Overlay>) => {
   return (
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
@@ -41,16 +42,16 @@ function DialogOverlay({
       {...props}
     />
   );
-}
+};
 
-function DialogContent({
+const DialogContent = ({
   className,
   children,
   showCloseButton = true,
   ...props
 }: ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean;
-}) {
+}) => {
   return (
     <DialogPortal>
       <DialogOverlay />
@@ -68,7 +69,7 @@ function DialogContent({
             <Button
               variant="ghost"
               className="absolute top-2 right-2"
-              size="small"
+              size="icon-small"
             >
               <XIcon />
               <span className="sr-only">Close</span>
@@ -78,9 +79,9 @@ function DialogContent({
       </DialogPrimitive.Content>
     </DialogPortal>
   );
-}
+};
 
-function DialogHeader({ className, ...props }: ComponentProps<"div">) {
+const DialogHeader = ({ className, ...props }: ComponentProps<"div">) => {
   return (
     <div
       data-slot="dialog-header"
@@ -88,23 +89,37 @@ function DialogHeader({ className, ...props }: ComponentProps<"div">) {
       {...props}
     />
   );
-}
+};
 
-function DialogFooter({
+const dialogFooterVariant = cva(
+  "bg-primary/10 -mx-4 -mb-4 rounded-b-xl border-t border-t-primary/80 p-4 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+  {
+    variants: {
+      variant: {
+        subtle: "bg-primary/10 border-t border-t-primary/80",
+        default: "bg-transparent",
+      },
+    },
+    defaultVariants: {
+      variant: "subtle",
+    },
+  },
+);
+
+const DialogFooter = ({
   className,
   showCloseButton = false,
   children,
+  variant,
   ...props
-}: ComponentProps<"div"> & {
-  showCloseButton?: boolean;
-}) {
+}: ComponentProps<"div"> &
+  VariantProps<typeof dialogFooterVariant> & {
+    showCloseButton?: boolean;
+  }) => {
   return (
     <div
       data-slot="dialog-footer"
-      className={cn(
-        "bg-muted/50 -mx-4 -mb-4 rounded-b-xl border-t p-4 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
-        className,
-      )}
+      className={cn(dialogFooterVariant({ variant }), className)}
       {...props}
     >
       {children}
@@ -115,12 +130,12 @@ function DialogFooter({
       )}
     </div>
   );
-}
+};
 
-function DialogTitle({
+const DialogTitle = ({
   className,
   ...props
-}: ComponentProps<typeof DialogPrimitive.Title>) {
+}: ComponentProps<typeof DialogPrimitive.Title>) => {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
@@ -128,12 +143,12 @@ function DialogTitle({
       {...props}
     />
   );
-}
+};
 
-function DialogDescription({
+const DialogDescription = ({
   className,
   ...props
-}: ComponentProps<typeof DialogPrimitive.Description>) {
+}: ComponentProps<typeof DialogPrimitive.Description>) => {
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
@@ -144,7 +159,7 @@ function DialogDescription({
       {...props}
     />
   );
-}
+};
 
 export {
   Dialog,

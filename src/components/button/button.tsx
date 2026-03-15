@@ -30,9 +30,11 @@ const buttonVariants = cva(
           "bg-transparent text-[var(--btn-color)] hover:bg-[var(--btn-color)]/10",
       },
       size: {
-        small: "text-xs h-8 px-3 has-[>svg]:px-2.5",
+        small: "text-xs h-7 px-3",
+        default: "text-xs h-8 px-3",
         medium: "text-sm h-9 px-4",
         large: "text-md h-10 px-6",
+        "icon-small": "h-6 w-6",
       },
       radius: {
         none: "[--btn-radius:0]",
@@ -52,7 +54,7 @@ const buttonVariants = cva(
     defaultVariants: {
       radius: "medium",
       variant: "solid",
-      size: "medium",
+      size: "default",
       intent: "primary",
       animation: "scale",
     },
